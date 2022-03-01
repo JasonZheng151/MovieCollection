@@ -164,12 +164,108 @@ public class MovieCollection
 
     private void searchCast()
     {
-        /* TASK 4: IMPLEMENT ME! */
+        System.out.print("Enter a cast member to search: ");
+        String searchTerm = scanner.nextLine();
+
+        // prevent case sensitivity
+        searchTerm = searchTerm.toLowerCase();
+
+        // arraylist to hold search results
+        String[] actorsList= actorsList.split
+
+        // search through ALL movies in collection
+        for (int i = 0; i < movies.size(); i++)
+        {
+            String movieCast = movies.get(i).getCast();
+            movieCast = movieCast.toLowerCase();
+
+            if (movieCast.contains(searchTerm)) {
+                //add the Movie objest to the results list
+                results.add(movies.get(i));
+
+            }
+        }
+
+        // sort the results by title
+        sortResults(results);
+
+        // now, display them all to the user
+        for (int i = 0; i < results.size(); i++)
+        {
+            String title = results.get(i).getTitle();
+
+            // this will print index 0 as choice 1 in the results list; better for user!
+            int choiceNum = i + 1;
+
+            System.out.println("" + choiceNum + ". " + title);
+        }
+
+        System.out.println("Which movie would you like to learn more about?");
+        System.out.print("Enter number: ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        Movie selectedMovie = results.get(choice - 1);
+
+        displayMovieInfo(selectedMovie);
+
+        System.out.println("\n ** Press Enter to Return to Main Menu **");
+        scanner.nextLine();
+
     }
 
     private void searchKeywords()
     {
-        /* TASK 3: IMPLEMENT ME! */
+        System.out.print("Enter a keyword to search: ");
+        String searchTerm = scanner.nextLine();
+
+        // prevent case sensitivity
+        searchTerm = searchTerm.toLowerCase();
+
+        // arraylist to hold search results
+        ArrayList<Movie> results = new ArrayList<Movie>();
+
+        // search through ALL movies in collection
+        for (int i = 0; i < movies.size(); i++)
+        {
+            String movieKeyword = movies.get(i).getKeywords();
+            movieKeyword= movieKeyword.toLowerCase();
+
+            if (movieKeyword.contains(searchTerm))
+            {
+                //add the Movie objest to the results list
+                results.add(movies.get(i));
+            }
+        }
+
+        // sort the results by title
+        sortResults(results);
+
+        // now, display them all to the user
+        for (int i = 0; i < results.size(); i++)
+        {
+            String title = results.get(i).getTitle();
+
+            // this will print index 0 as choice 1 in the results list; better for user!
+            int choiceNum = i + 1;
+
+            System.out.println("" + choiceNum + ". " + title);
+        }
+
+        System.out.println("Which movie would you like to learn more about?");
+        System.out.print("Enter number: ");
+
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        Movie selectedMovie = results.get(choice - 1);
+
+        displayMovieInfo(selectedMovie);
+
+        System.out.println("\n ** Press Enter to Return to Main Menu **");
+        scanner.nextLine();
+
     }
 
     private void listGenres()
@@ -199,7 +295,7 @@ public class MovieCollection
 
             while ((line = bufferedReader.readLine()) != null)
             {
-                d
+
                 String[] movieFromCSV = line.split(",");
 
 
@@ -207,16 +303,17 @@ public class MovieCollection
                 String cast = movieFromCSV[1];
                 String director = movieFromCSV[2];
                 String tagline =movieFromCSV[3];
-                String overview = movieFromCSV[4];
-                int  runtime = Integer.parseInt(movieFromCSV[5]);
-                String genres = movieFromCSV[6];
-                double userRating = Double.parseDouble(movieFromCSV[7]);
-                int year = Integer.parseInt(movieFromCSV[8]);
-                int revenue = Integer.parseInt(movieFromCSV[9]);
+                String keyword =movieFromCSV[4];
+                String overview = movieFromCSV[5];
+                int  runtime = Integer.parseInt(movieFromCSV[6]);
+                String genres = movieFromCSV[7];
+                double userRating = Double.parseDouble(movieFromCSV[8]);
+                int year = Integer.parseInt(movieFromCSV[9]);
+                int revenue = Integer.parseInt(movieFromCSV[10]);
 
 
 
-                Movie nextMovie = new Movie(title, cast, director, tagline, overview, runtime, genres,userRating, year, revenue);
+                Movie nextMovie = new Movie(title, cast, director, tagline, keyword, overview, runtime, genres,userRating, year, revenue);
 
 
                 movies.add(nextMovie);
@@ -233,4 +330,3 @@ public class MovieCollection
 
     // ADD ANY ADDITIONAL PRIVATE HELPER METHODS you deem necessary
 
-}
